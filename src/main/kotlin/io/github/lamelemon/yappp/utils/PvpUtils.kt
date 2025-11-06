@@ -1,6 +1,8 @@
 package io.github.lamelemon.yappp.utils
 
 import io.github.lamelemon.yappp.Yappp
+import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
@@ -21,5 +23,9 @@ object PvpUtils {
 
     fun messagePlayer(player: Player, message: String) {
         player.sendRichMessage("<gold>[</gold><color:#fafad2>Yappp</color><gold>]</gold> $message")
+    }
+
+    fun sendActionBar(player: Player, message: String) {
+        player.sendActionBar(MiniMessage.miniMessage().deserialize(message))
     }
 }

@@ -32,7 +32,7 @@ class Yappp : JavaPlugin() {
 
         pvpStateKey = NamespacedKey(this, "pvpDisabled")
         instance = this
-        combatManager = CombatManager(config.getLong("combat-duration", 0) * 20)
+        combatManager = CombatManager(config.getLong("combat-duration", 0))
 
         registerCommand("pvp", PvpToggleCommand(config.getDouble("toggle-cooldown", 0.0)))
         pluginManager.registerEvents(DamageEvent(), this)

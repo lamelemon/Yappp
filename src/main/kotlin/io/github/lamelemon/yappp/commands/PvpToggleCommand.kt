@@ -2,6 +2,7 @@ package io.github.lamelemon.yappp.commands
 
 import io.github.lamelemon.yappp.utils.PvpUtils.combatManager
 import io.github.lamelemon.yappp.utils.PvpUtils.messagePlayer
+import io.github.lamelemon.yappp.utils.PvpUtils.pvpDisabled
 import io.github.lamelemon.yappp.utils.PvpUtils.togglePvp
 import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
@@ -13,15 +14,19 @@ class PvpToggleCommand(val toggleCooldown: Double) : BasicCommand {
         commandSourceStack: CommandSourceStack,
         args: Array<out String>
     ) {
-        val sender = commandSourceStack.sender
-        if (sender !is Player) return
+        val player = commandSourceStack.sender
+        if (player !is Player) return
 
-        if (combatManager.isInCombat(sender)){
-            messagePlayer(sender, "<red>In combat!</red>")
+        if (combatManager.isInCombat(player)){
+            messagePlayer(player, "<red>In Combat!</red>")
             return
         }
 
-        messagePlayer(sender, "<green>Pvp toggled!</green>")
-        togglePvp(sender)
+        if (pvpDisabled(player)) {
+            messagePlayer(player, "PvP <green>Enabled!</green>")
+        } else {
+            messagePlayer(player, "PvP <red>Disabled!</red>")
+        }
+        togglePvp(player)
     }
 }
