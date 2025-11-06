@@ -1,27 +1,37 @@
 package io.github.lamelemon.yappp.events
 
-import io.github.lamelemon.yappp.Yappp.Companion.pvpDisabled
+import io.github.lamelemon.yappp.utils.PvpUtils.combatManager
+import io.github.lamelemon.yappp.utils.PvpUtils.messagePlayer
+import io.github.lamelemon.yappp.utils.PvpUtils.pvpDisabled
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 
-class DamageEvent : Listener {
+class DamageEvent() : Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     fun entityDamageEvent(event: EntityDamageEvent) {
-        val attacker = event.damageSource.causingEntity
         val victim = event.entity
+        val attacker = event.damageSource.causingEntity
 
         if (attacker !is Player || victim !is Player) return
 
-        if (pvpDisabled(attacker) || pvpDisabled(victim)) {
-            attacker.sendRichMessage("<red>Pvp is off for one of you!")
-            victim.sendRichMessage("<red>Pvp is off for one of you!")
-            event.isCancelled = true
-        } else {
-            TODO("Add timer")
+        when {
+            pvpDisabled(attacker) -> {
+                messagePlayer(attacker, "<red>Your PvP is currently off!")
+                event.isCancelled = true
+            }
+            pvpDisabled(victim) -> {
+                messagePlayer(attacker, "<red>PvP is off for that player!")
+                event.isCancelled = true
+            }
+            else -> {
+                combatManager.tagPlayer(victim)
+                combatManager.tagPlayer(attacker)
+            }
         }
+
     }
 }

@@ -5,5 +5,5 @@ toggle-timer: 0
 # Cooldown in seconds between toggling pvp on and off.
 # Has a minimum value of what toggle-timer has.
 toggle-cooldown: 5
-combat-duration: 60 # Duration that player cannot exit pvp after being attacked
+combat-duration: 20 # Duration that player cannot exit pvp after being attacked
 

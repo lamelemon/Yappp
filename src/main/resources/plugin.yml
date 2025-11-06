@@ -1,7 +1,7 @@
 name: Yappp
 version: '1.0-SNAPSHOT'
 main: io.github.lamelemon.yappp.Yappp
-api-version: '1.21'
+api-version: '1.21.10'
 authors: [ lamius lemonius ]
 description: Yet Another Pvp Protection Plugin for Papermc
 website: https://github.com/lamelemon/Yappp.git
