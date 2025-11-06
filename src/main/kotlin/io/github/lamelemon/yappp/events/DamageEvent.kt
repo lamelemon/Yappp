@@ -19,9 +19,7 @@ class DamageEvent(val selfPvp: Boolean) : Listener {
         val attacker = event.damageSource.causingEntity
 
         // Verify that it's a pvp situation and prevent people from tanking self damage
-        // && in parentheses for clarity
-        // (please use parentheses even if it's not required it doesn't hurt performance)
-        if (attacker !is Player || victim !is Player || (attacker.uniqueId == victim.uniqueId && !selfPvp)) return
+        if (attacker !is Player || victim !is Player || (attacker.uniqueId == victim.uniqueId && selfPvp)) return
 
         when {
             pvpDisabled(attacker) -> {
@@ -34,7 +32,7 @@ class DamageEvent(val selfPvp: Boolean) : Listener {
                 simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true
             }
-            else -> { // Tag both players as being in combat
+            attacker.uniqueId != victim.uniqueId -> { // Tag both players as being in combat unless its self damage
                 combatManager.tagPlayer(victim)
                 combatManager.tagPlayer(attacker)
             }

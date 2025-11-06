@@ -35,7 +35,7 @@ class Yappp : JavaPlugin() {
         combatManager = CombatManager(config.getLong("combat-duration", 0))
 
         registerCommand("pvp", PvpToggleCommand(config.getLong("toggle-cooldown", 0), config.getLong("toggle-timer", 0)))
-        pluginManager.registerEvents(DamageEvent(), this)
+        pluginManager.registerEvents(DamageEvent(config.getBoolean("self-pvp")), this)
     }
 
     override fun onDisable() {
