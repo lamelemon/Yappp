@@ -3,6 +3,8 @@ package io.github.lamelemon.yappp.events
 import io.github.lamelemon.yappp.utils.Utils.combatManager
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.pvpDisabled
+import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
+import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
@@ -16,18 +18,21 @@ class DamageEvent() : Listener {
         val victim = event.entity
         val attacker = event.damageSource.causingEntity
 
-        if (attacker !is Player || victim !is Player) return
+        // Verify that it's a pvp situation and prevent people from tanking self damage
+        if (attacker !is Player || victim !is Player || attacker.uniqueId == victim.uniqueId) return
 
         when {
             pvpDisabled(attacker) -> {
                 messagePlayer(attacker, "<red>Your PvP is currently off!")
+                simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true
             }
             pvpDisabled(victim) -> {
                 messagePlayer(attacker, "<red>PvP is off for that player!")
+                simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true
             }
-            else -> {
+            else -> { // Tag both players as being in combat
                 combatManager.tagPlayer(victim)
                 combatManager.tagPlayer(attacker)
             }

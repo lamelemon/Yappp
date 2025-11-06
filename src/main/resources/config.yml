@@ -1,12 +1,6 @@
 enabled: true # Whether the plugin should be active or not
 
-# Amount of time in seconds for how long the player has to stand still to toggle pvp
-# Set to 0 to disable the timer
-toggle-timer: 0 # NOT FUNCTIONAL
-
-# Cooldown in seconds between toggling pvp on and off.
-# Has a minimum value of what toggle-timer has.
-toggle-cooldown: 5 # NOT FUNCTIONAL
-
+# NOT FUNCTIONAL
+toggle-timer: 0 # Amount of time in seconds for how long the player has to stand still to toggle pvp
+toggle-cooldown: 0 # Cooldown in seconds between toggling pvp on and off. (0 == disabled)
 combat-duration: 20 # Duration that player cannot exit pvp after being attacked
-

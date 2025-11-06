@@ -3,6 +3,7 @@ package io.github.lamelemon.yappp.utils
 import io.github.lamelemon.yappp.Yappp
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.NamespacedKey
+import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
 import java.util.Objects
@@ -26,5 +27,12 @@ object Utils {
 
     fun sendActionBar(player: Player, message: String) {
         player.sendActionBar(MiniMessage.miniMessage().deserialize(message))
+    }
+
+    fun simplePlaySound(player: Player, sound: Sound) {
+        player.playSound(player.location,
+            sound,
+            1.0f,
+            1.0f)
     }
 }
