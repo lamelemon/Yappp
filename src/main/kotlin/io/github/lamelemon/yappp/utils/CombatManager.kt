@@ -1,12 +1,8 @@
 package io.github.lamelemon.yappp.utils
 
-import io.github.lamelemon.yappp.utils.PvpUtils.instance
-import io.github.lamelemon.yappp.utils.PvpUtils.messagePlayer
-import io.github.lamelemon.yappp.utils.PvpUtils.sendActionBar
-import org.bukkit.Bukkit
+import io.github.lamelemon.yappp.utils.Utils.instance
+import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitRunnable
-import org.bukkit.scheduler.BukkitTask
 import java.util.UUID
 
 class CombatManager(val combatDuration: Long) {

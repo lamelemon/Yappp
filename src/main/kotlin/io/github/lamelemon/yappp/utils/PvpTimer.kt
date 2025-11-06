@@ -1,9 +1,9 @@
 package io.github.lamelemon.yappp.utils
 
-import io.github.lamelemon.yappp.utils.PvpUtils.combatManager
-import io.github.lamelemon.yappp.utils.PvpUtils.instance
-import io.github.lamelemon.yappp.utils.PvpUtils.messagePlayer
-import io.github.lamelemon.yappp.utils.PvpUtils.sendActionBar
+import io.github.lamelemon.yappp.utils.Utils.combatManager
+import io.github.lamelemon.yappp.utils.Utils.instance
+import io.github.lamelemon.yappp.utils.Utils.messagePlayer
+import io.github.lamelemon.yappp.utils.Utils.sendActionBar
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 

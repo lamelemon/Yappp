@@ -1,8 +1,8 @@
 package io.github.lamelemon.yappp.events
 
-import io.github.lamelemon.yappp.utils.PvpUtils.combatManager
-import io.github.lamelemon.yappp.utils.PvpUtils.messagePlayer
-import io.github.lamelemon.yappp.utils.PvpUtils.pvpDisabled
+import io.github.lamelemon.yappp.utils.Utils.combatManager
+import io.github.lamelemon.yappp.utils.Utils.messagePlayer
+import io.github.lamelemon.yappp.utils.Utils.pvpDisabled
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority

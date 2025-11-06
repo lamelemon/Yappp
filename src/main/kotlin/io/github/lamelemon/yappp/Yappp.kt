@@ -3,9 +3,9 @@ package io.github.lamelemon.yappp
 import io.github.lamelemon.yappp.commands.PvpToggleCommand
 import io.github.lamelemon.yappp.events.DamageEvent
 import io.github.lamelemon.yappp.utils.CombatManager
-import io.github.lamelemon.yappp.utils.PvpUtils.combatManager
-import io.github.lamelemon.yappp.utils.PvpUtils.instance
-import io.github.lamelemon.yappp.utils.PvpUtils.pvpStateKey
+import io.github.lamelemon.yappp.utils.Utils.combatManager
+import io.github.lamelemon.yappp.utils.Utils.instance
+import io.github.lamelemon.yappp.utils.Utils.pvpStateKey
 import org.bukkit.NamespacedKey
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin

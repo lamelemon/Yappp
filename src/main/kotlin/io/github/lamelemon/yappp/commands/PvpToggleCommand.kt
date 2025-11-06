@@ -1,9 +1,9 @@
 package io.github.lamelemon.yappp.commands
 
-import io.github.lamelemon.yappp.utils.PvpUtils.combatManager
-import io.github.lamelemon.yappp.utils.PvpUtils.messagePlayer
-import io.github.lamelemon.yappp.utils.PvpUtils.pvpDisabled
-import io.github.lamelemon.yappp.utils.PvpUtils.togglePvp
+import io.github.lamelemon.yappp.utils.Utils.combatManager
+import io.github.lamelemon.yappp.utils.Utils.messagePlayer
+import io.github.lamelemon.yappp.utils.Utils.pvpDisabled
+import io.github.lamelemon.yappp.utils.Utils.togglePvp
 import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.entity.Player
