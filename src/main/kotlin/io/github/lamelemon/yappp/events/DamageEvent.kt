@@ -11,7 +11,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 
-class DamageEvent() : Listener {
+class DamageEvent(val selfPvp: Boolean) : Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     fun entityDamageEvent(event: EntityDamageEvent) {
@@ -19,7 +19,9 @@ class DamageEvent() : Listener {
         val attacker = event.damageSource.causingEntity
 
         // Verify that it's a pvp situation and prevent people from tanking self damage
-        if (attacker !is Player || victim !is Player || attacker.uniqueId == victim.uniqueId) return
+        // && in parentheses for clarity
+        // (please use parentheses even if it's not required it doesn't hurt performance)
+        if (attacker !is Player || victim !is Player || (attacker.uniqueId == victim.uniqueId && !selfPvp)) return
 
         when {
             pvpDisabled(attacker) -> {

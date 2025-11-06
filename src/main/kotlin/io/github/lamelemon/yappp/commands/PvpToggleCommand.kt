@@ -33,15 +33,15 @@ class PvpToggleCommand(val toggleCooldown: Long, val disableTimer: Long) : Basic
             return
         }
 
-        if (cooldowns.containsKey(player.uniqueId)) {
-            messagePlayer(player, "<red>Command on cooldown!</red>")
+        if (cooldowns.containsKey(player.uniqueId)) { // Command is currently on cooldown for player
+            messagePlayer(player, "<red>Command on cooldown for " + cooldowns[player.uniqueId]?.cooldown.toString() + " more seconds!</red>")
             simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_BASS)
             return
         }
 
         if (pvpDisabled(player)) {
             messagePlayer(player, "PvP <green>Enabled!</green>")
-            if (toggleCooldown > 0) {
+            if (toggleCooldown > 0) { // Cooldown on disabling pvp after enabling it
                 cooldowns[player.uniqueId] = ToggleCooldown(toggleCooldown, player, this)
                 cooldowns[player.uniqueId]?.runTaskTimer(instance, 0, 20)
             }
