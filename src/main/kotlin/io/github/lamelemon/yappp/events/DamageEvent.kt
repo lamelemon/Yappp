@@ -19,7 +19,7 @@ class DamageEvent(val selfPvp: Boolean) : Listener {
         val attacker = event.damageSource.causingEntity
 
         // Verify that it's a pvp situation and prevent people from tanking self damage
-        if (attacker !is Player || victim !is Player || (attacker.uniqueId == victim.uniqueId && selfPvp)) return
+        if (attacker !is Player || victim !is Player ||  attacker.uniqueId == victim.uniqueId && selfPvp) return
 
         when {
             pvpDisabled(attacker) -> {

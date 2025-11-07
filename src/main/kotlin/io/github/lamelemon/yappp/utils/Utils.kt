@@ -21,6 +21,10 @@ object Utils {
         player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, !pvpDisabled(player))
     }
 
+    fun enablePvp(player: Player) {
+        player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, false)
+    }
+
     fun messagePlayer(player: Player, message: String) {
         player.sendRichMessage("<gold>[</gold><color:#fafad2>Yappp</color><gold>]</gold> $message")
     }

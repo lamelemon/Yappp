@@ -1,5 +1,6 @@
 package io.github.lamelemon.yappp
 
+import io.github.lamelemon.yappp.commands.ForcePvp
 import io.github.lamelemon.yappp.commands.PvpToggleCommand
 import io.github.lamelemon.yappp.events.DamageEvent
 import io.github.lamelemon.yappp.utils.CombatManager
@@ -35,6 +36,7 @@ class Yappp : JavaPlugin() {
         combatManager = CombatManager(config.getLong("combat-duration", 0))
 
         registerCommand("pvp", PvpToggleCommand(config.getLong("toggle-cooldown", 0), config.getLong("toggle-timer", 0)))
+        registerCommand("forcePvp", ForcePvp())
         pluginManager.registerEvents(DamageEvent(config.getBoolean("self-pvp")), this)
     }
 

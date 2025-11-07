@@ -1,0 +1,42 @@
+package io.github.lamelemon.yappp.commands
+
+import io.github.lamelemon.yappp.utils.Utils.enablePvp
+import io.github.lamelemon.yappp.utils.Utils.instance
+import io.github.lamelemon.yappp.utils.Utils.messagePlayer
+import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
+import io.papermc.paper.command.brigadier.BasicCommand
+import io.papermc.paper.command.brigadier.CommandSourceStack
+import org.bukkit.Sound
+import org.bukkit.entity.Player
+
+class ForcePvp : BasicCommand {
+
+    override fun execute(
+        commandSourceStack: CommandSourceStack,
+        args: Array<out String>
+    ) {
+        val sender = commandSourceStack.sender
+        if (sender !is Player) return
+
+        if (!sender.isOp) {
+            messagePlayer(sender, "You don't have access to this command!")
+            return
+        }
+
+        for (name: String in args) {
+            val target = instance.server.getPlayer(name)
+            if (target is Player) {
+                enablePvp(target)
+            }
+        }
+        messagePlayer(sender, "<green>Enabled Pvp for targets!</green>")
+        simplePlaySound(sender, Sound.BLOCK_NOTE_BLOCK_PLING)
+    }
+
+    override fun suggest(commandSourceStack: CommandSourceStack, args: Array<out String>): Collection<String> {
+        val input = args.lastOrNull()?.lowercase() ?: ""
+        return instance.server.onlinePlayers
+            .map { it.name }
+            .filter { it.lowercase().startsWith(input) }
+    }
+}
