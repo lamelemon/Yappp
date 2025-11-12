@@ -15,16 +15,13 @@ import java.io.File
 
 class Yappp : JavaPlugin() {
 
-    lateinit var config: YamlConfiguration
-
     override fun onEnable() {
-
         val configFile = File(dataFolder, "config.yml")
         if (!configFile.exists()) {
             saveResource("config.yml", false)
         }
 
-        config = YamlConfiguration.loadConfiguration(configFile)
+        val config = YamlConfiguration.loadConfiguration(configFile)
         val pluginManager = server.pluginManager
 
         if (!config.getBoolean("enabled", true)) {

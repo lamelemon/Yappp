@@ -13,7 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 
 class DamageEvent(val selfPvp: Boolean) : Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOWEST)
     fun entityDamageEvent(event: EntityDamageEvent) {
         val victim = event.entity
         val attacker = event.damageSource.causingEntity
