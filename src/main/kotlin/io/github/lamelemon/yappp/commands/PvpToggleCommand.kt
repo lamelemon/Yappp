@@ -1,6 +1,7 @@
 package io.github.lamelemon.yappp.commands
 
 import io.github.lamelemon.yappp.utils.Utils.combatManager
+import io.github.lamelemon.yappp.utils.Utils.instance
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
 import io.github.lamelemon.yappp.utils.Utils.pvpDisabled
@@ -9,6 +10,7 @@ import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.Sound
 import org.bukkit.entity.Player
+import org.bukkit.scheduler.BukkitScheduler
 import java.util.UUID
 
 class PvpToggleCommand(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand {
@@ -35,7 +37,7 @@ class PvpToggleCommand(val toggleCooldown: Long, val disableTimer: Long) : Basic
         val currentTime = commandSourceStack.location.world.gameTime
         val lastUsed = cooldowns2[uuid]
 
-        if (lastUsed is Long && toggleCooldown > currentTime - lastUsed) { // Command is currently on cooldown for player
+        if (lastUsed is Long) { // Check if command is on cooldown for player
             messagePlayer(player, "<red>Command on cooldown for " + (toggleCooldown - (currentTime - lastUsed)) + " more seconds!</red>")
             simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_BASS)
             return
@@ -44,6 +46,10 @@ class PvpToggleCommand(val toggleCooldown: Long, val disableTimer: Long) : Basic
         if (pvpDisabled(player)) {
             messagePlayer(player, "PvP <green>Enabled!</green>")
             cooldowns2[uuid] = currentTime
+            // Avoid extremely slow memory leak
+            instance.server.scheduler.runTaskLater(instance, Runnable{
+                cooldowns2.remove(uuid)
+            }, toggleCooldown * 20)
         } else {
             messagePlayer(player, "PvP <red>Disabled!</red>")
         }

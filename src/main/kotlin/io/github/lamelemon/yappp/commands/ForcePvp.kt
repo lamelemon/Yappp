@@ -15,11 +15,11 @@ class ForcePvp : BasicCommand {
         commandSourceStack: CommandSourceStack,
         args: Array<out String>
     ) {
-        val sender = commandSourceStack.sender
-        if (sender !is Player) return
+        val player = commandSourceStack.sender
+        if (player !is Player) return
 
-        if (!sender.isOp) {
-            messagePlayer(sender, "You don't have access to this command!")
+        if (!player.isOp) {
+            messagePlayer(player, "You don't have access to this command!")
             return
         }
 
@@ -29,8 +29,8 @@ class ForcePvp : BasicCommand {
                 enablePvp(target)
             }
         }
-        messagePlayer(sender, "<green>Enabled Pvp for targets!</green>")
-        simplePlaySound(sender, Sound.BLOCK_NOTE_BLOCK_PLING)
+        messagePlayer(player, "<green>Enabled Pvp for targets!</green>")
+        simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
     }
 
     override fun suggest(commandSourceStack: CommandSourceStack, args: Array<out String>): Collection<String> {
