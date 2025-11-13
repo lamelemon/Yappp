@@ -22,7 +22,13 @@ object Utils {
     }
 
     fun enablePvp(player: Player) {
+        messagePlayer(player, "PvP <green>Enabled</green>!")
         player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, false)
+    }
+
+    fun disablePvp(player: Player) {
+        messagePlayer(player, "PvP <red>Disabled</red>!")
+        player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, true)
     }
 
     fun messagePlayer(player: Player, message: String) {
