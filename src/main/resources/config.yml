@@ -1,6 +1,6 @@
 enabled: true # Whether the plugin should be active or not
 
-# NOT FUNCTIONAL
+# UNFINISHED
 toggle-timer: 0 # Amount of time in seconds for how long the player has to stand still to toggle pvp
 
 toggle-cooldown: 0 # Cooldown in seconds between toggling pvp from off to on. (0 == disabled)

@@ -17,14 +17,13 @@ import java.util.*
 class PvpToggleCommand(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand {
     private val cooldowns = mutableMapOf<UUID, Long>()
 
-    // TODO: Add optional delay between running command and then disabling pvp
-    //  (use a player event to detect if they're disabling pvp when they do something?)
     override fun execute(
         commandSourceStack: CommandSourceStack,
         args: Array<out String>
     ) {
         val player = commandSourceStack.sender
         if (player !is Player) return
+
         val uuid = player.uniqueId
 
         if (combatManager.inCombat(player)){
