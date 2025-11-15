@@ -1,33 +1,28 @@
 package io.github.lamelemon.yappp.utils
 
-import io.github.lamelemon.yappp.Yappp
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.NamespacedKey
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
-import java.util.Objects
+import java.util.*
 
 object Utils {
     lateinit var pvpStateKey: NamespacedKey
-    lateinit var instance: Yappp
-    lateinit var combatManager: CombatManager
 
     fun pvpDisabled(player: Player): Boolean {
         return Objects.requireNonNullElse(player.persistentDataContainer.get(pvpStateKey, PersistentDataType.BOOLEAN), false)
     }
 
-    fun togglePvp(player: Player) {
-        player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, !pvpDisabled(player))
-    }
-
     fun enablePvp(player: Player) {
         messagePlayer(player, "PvP <green>Enabled</green>!")
+        simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
         player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, false)
     }
 
     fun disablePvp(player: Player) {
         messagePlayer(player, "PvP <red>Disabled</red>!")
+        simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
         player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, true)
     }
 

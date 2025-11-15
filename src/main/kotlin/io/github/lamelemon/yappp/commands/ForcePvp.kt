@@ -1,7 +1,7 @@
 package io.github.lamelemon.yappp.commands
 
+import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.utils.Utils.enablePvp
-import io.github.lamelemon.yappp.utils.Utils.instance
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
 import io.papermc.paper.command.brigadier.BasicCommand

@@ -1,6 +1,6 @@
 package io.github.lamelemon.yappp.events
 
-import io.github.lamelemon.yappp.utils.Utils.combatManager
+import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.pvpDisabled
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
@@ -11,7 +11,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 
-class DamageEvent(val selfPvp: Boolean) : Listener {
+class TakeDamage(val selfPvp: Boolean) : Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     fun entityDamageEvent(event: EntityDamageEvent) {
@@ -33,8 +33,8 @@ class DamageEvent(val selfPvp: Boolean) : Listener {
                 event.isCancelled = true
             }
             attacker.uniqueId != victim.uniqueId -> { // Tag both players as being in combat unless its self damage
-                combatManager.tagPlayer(victim)
-                combatManager.tagPlayer(attacker)
+                CombatManager.tagPlayer(victim)
+                CombatManager.tagPlayer(attacker)
             }
         }
 

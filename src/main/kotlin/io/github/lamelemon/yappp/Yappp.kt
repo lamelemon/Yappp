@@ -1,19 +1,20 @@
 package io.github.lamelemon.yappp
 
 import io.github.lamelemon.yappp.commands.ForcePvp
-import io.github.lamelemon.yappp.commands.PvpToggleCommand
-import io.github.lamelemon.yappp.events.DamageEvent
+import io.github.lamelemon.yappp.commands.PvpToggle
+import io.github.lamelemon.yappp.events.TakeDamage
 import io.github.lamelemon.yappp.utils.CombatManager
-import io.github.lamelemon.yappp.utils.Utils.combatManager
-import io.github.lamelemon.yappp.utils.Utils.instance
 import io.github.lamelemon.yappp.utils.Utils.pvpStateKey
 import org.bukkit.NamespacedKey
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
-
 import java.io.File
 
 class Yappp : JavaPlugin() {
+
+    companion object {
+        lateinit var instance: Yappp
+    }
 
     override fun onEnable() {
         val configFile = File(dataFolder, "config.yml")
@@ -30,10 +31,10 @@ class Yappp : JavaPlugin() {
 
         pvpStateKey = NamespacedKey(this, "pvpDisabled")
         instance = this
-        combatManager = CombatManager(config.getLong("combat-duration", 0))
+        CombatManager.setTagDuration(config.getLong("combat-duration", 0))
 
-        registerCommand("pvp", PvpToggleCommand(config.getLong("toggle-cooldown", 0), config.getLong("toggle-timer", 0)))
+        registerCommand("pvp", PvpToggle(config.getLong("toggle-cooldown", 0), config.getLong("toggle-timer", 0)))
         registerCommand("forcePvp", ForcePvp())
-        pluginManager.registerEvents(DamageEvent(config.getBoolean("self-damage")), this)
+        pluginManager.registerEvents(TakeDamage(config.getBoolean("self-damage")), this)
     }
 }

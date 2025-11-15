@@ -1,23 +1,24 @@
 package io.github.lamelemon.yappp.utils
 
-import io.github.lamelemon.yappp.utils.Utils.instance
+import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.timers.CombatTimer
 import org.bukkit.entity.Player
 import java.util.UUID
 
-class CombatManager(val defaultDuration: Long) {
-    private val combatTimers = mutableMapOf<UUID, CombatTimer>()
+object CombatManager {
+    val combatTimers = mutableMapOf<UUID, CombatTimer>()
+    private var tagDuration: Long = 0
 
     fun tagPlayer(player: Player) {
-        if (defaultDuration.toInt() == 0) return
+        if (tagDuration.toInt() == 0) return
 
         if (!inCombat(player)) {
             messagePlayer(player, "<red>Entered combat!</red>")
-            combatTimers[player.uniqueId] = CombatTimer(defaultDuration, player)
+            combatTimers[player.uniqueId] = CombatTimer(tagDuration, player)
             combatTimers[player.uniqueId]?.runTaskTimer(instance, 0, 20)
         } else {
-            combatTimers[player.uniqueId]?.combatDuration = defaultDuration
+            combatTimers[player.uniqueId]?.combatDuration = tagDuration
         }
     }
 
@@ -25,7 +26,7 @@ class CombatManager(val defaultDuration: Long) {
         return combatTimers.containsKey(player.uniqueId)
     }
 
-    fun removeTimer(uuid: UUID) {
-        combatTimers.remove(uuid)
+    fun setTagDuration(duration: Long) {
+        tagDuration = duration
     }
 }
