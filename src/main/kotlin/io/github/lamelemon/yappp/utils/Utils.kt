@@ -4,26 +4,26 @@ import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.NamespacedKey
 import org.bukkit.Sound
 import org.bukkit.entity.Player
-import org.bukkit.persistence.PersistentDataType
 import java.util.*
 
 object Utils {
     lateinit var pvpStateKey: NamespacedKey
+    private val pvpStates = mutableMapOf<UUID, Boolean>()
 
-    fun pvpDisabled(player: Player): Boolean {
-        return Objects.requireNonNullElse(player.persistentDataContainer.get(pvpStateKey, PersistentDataType.BOOLEAN), false)
+    fun pvpEnabled(player: Player): Boolean {
+        return Objects.requireNonNullElse(pvpStates[player.uniqueId], false)
     }
 
     fun enablePvp(player: Player) {
         messagePlayer(player, "PvP <green>Enabled</green>!")
         simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
-        player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, false)
+        pvpStates[player.uniqueId] = true
     }
 
     fun disablePvp(player: Player) {
         messagePlayer(player, "PvP <red>Disabled</red>!")
         simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
-        player.persistentDataContainer.set(pvpStateKey, PersistentDataType.BOOLEAN, true)
+        pvpStates[player.uniqueId] = false
     }
 
     fun messagePlayer(player: Player, message: String) {

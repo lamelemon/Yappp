@@ -16,6 +16,7 @@ class CombatTimer(var combatDuration: Long, val player: Player) : BukkitRunnable
             simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
             CombatManager.combatTimers.remove(player.uniqueId)
             this.cancel()
+            return
         }
         combatDuration--
         sendActionBar(player, "<red>In combat for " + combatDuration + "s!</red>")

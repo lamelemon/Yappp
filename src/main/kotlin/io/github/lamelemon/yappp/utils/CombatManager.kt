@@ -10,15 +10,17 @@ object CombatManager {
     val combatTimers = mutableMapOf<UUID, CombatTimer>()
     private var tagDuration: Long = 0
 
-    fun tagPlayer(player: Player) {
+    fun combatTag(players: Iterable<Player>) {
         if (tagDuration.toInt() == 0) return
 
-        if (!inCombat(player)) {
-            messagePlayer(player, "<red>Entered combat!</red>")
-            combatTimers[player.uniqueId] = CombatTimer(tagDuration, player)
-            combatTimers[player.uniqueId]?.runTaskTimer(instance, 0, 20)
-        } else {
-            combatTimers[player.uniqueId]?.combatDuration = tagDuration
+        for (player in players) {
+            if (!inCombat(player)) {
+                messagePlayer(player, "<red>Entered combat!</red>")
+                combatTimers[player.uniqueId] = CombatTimer(tagDuration, player)
+                combatTimers[player.uniqueId]?.runTaskTimer(instance, 0, 20)
+            } else {
+                combatTimers[player.uniqueId]?.combatDuration = tagDuration
+            }
         }
     }
 

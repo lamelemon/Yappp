@@ -17,12 +17,20 @@ class ToggleTimer(var duration : Long, val player: Player, val pvpToggle: PvpTog
     override fun run() {
         if (duration <= 0) {
             disablePvp(player)
-            pvpToggle.toggleTimers.remove(player.uniqueId)
             this.cancel()
             return
         }
+
         simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_BIT)
         messagePlayer(player, "$duration")
         duration--
+    }
+
+    override fun cancel() {
+        pvpToggle.toggleTimers.remove(player.uniqueId)
+    }
+
+    fun earlyCancel() {
+        this.cancel()
     }
 }
