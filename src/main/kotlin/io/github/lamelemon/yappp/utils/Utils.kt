@@ -14,15 +14,31 @@ object Utils {
         return Objects.requireNonNullElse(pvpStates[player.uniqueId], false)
     }
 
-    fun enablePvp(player: Player) {
-        messagePlayer(player, "PvP <green>Enabled</green>!")
+    fun setPvp(player: Player, notify: Boolean, newState: Boolean) {
+        if (notify) {
+            if (newState) messagePlayer(player, "PvP <green>Enabled</green>!")
+            else messagePlayer(player, "PvP <red>Disabled</red>!")
+        }
+
+        pvpStates[player.uniqueId] = newState
         simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
+    }
+
+    fun enablePvp(player: Player, notify: Boolean) {
+        if (notify) {
+            messagePlayer(player, "PvP <green>Enabled</green>!")
+            simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
+        }
+
         pvpStates[player.uniqueId] = true
     }
 
-    fun disablePvp(player: Player) {
-        messagePlayer(player, "PvP <red>Disabled</red>!")
-        simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
+    fun disablePvp(player: Player, notify: Boolean) {
+        if (notify) {
+            messagePlayer(player, "PvP <red>Disabled</red>!")
+            simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
+        }
+
         pvpStates[player.uniqueId] = false
     }
 

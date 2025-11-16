@@ -4,7 +4,7 @@ import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.timers.CombatTag
 import org.bukkit.entity.Player
-import java.util.UUID
+import java.util.*
 
 object CombatManager {
     val combatTimers = mutableMapOf<UUID, CombatTag>()

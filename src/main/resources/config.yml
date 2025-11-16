@@ -2,7 +2,7 @@ enabled: true # Whether the plugin should be active or not
 
 toggle-timer: 0 # Duration in seconds for how long the player has to stand still to toggle pvp
 toggle-cooldown: 0 # Cooldown in seconds between toggling pvp from off to on. (0 == disabled)
-combat-duration: 20 # Duration in seconds that player cannot exit pvp after being attacked
+combat-duration: 60 # Duration in seconds that player cannot exit pvp after being attacked
 self-damage: true # Whether players should take damage from themselves while pvp is off (won't tag them either way)
 keep-inventory: true # Should players keep their inventory when another player kills them
 disable-pvp-on-death: true # Should pvp be disabled for players when they die

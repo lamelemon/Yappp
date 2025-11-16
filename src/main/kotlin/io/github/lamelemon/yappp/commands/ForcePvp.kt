@@ -22,7 +22,7 @@ class ForcePvp : BasicCommand {
         for (name: String in args) {
             val target = instance.server.getPlayer(name)
             if (target is Player) {
-                enablePvp(target)
+                enablePvp(target, false)
             }
         }
         messagePlayer(player, "<green>Enabled Pvp for targets!</green>")

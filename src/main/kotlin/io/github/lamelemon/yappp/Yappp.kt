@@ -12,8 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
 // TODO /duel <player> to challenge people to fights (disable pvp between fighters and outsiders, tag fighters)
-// TODO prevent players from disconnecting from server while combat tagged OR punish them for disconnecting
-//  (Maybe add both and just check a config variable?)
+// TODO punish players for disconnecting while in combat (combat logging)
 
 class Yappp : JavaPlugin() {
 
@@ -41,6 +40,6 @@ class Yappp : JavaPlugin() {
         registerCommand("pvp", PvpToggle(config.getLong("toggle-cooldown", 0), config.getLong("toggle-timer", 0)))
         registerCommand("forcePvp", ForcePvp())
         pluginManager.registerEvents(TakeDamage(config.getBoolean("self-damage")), this)
-        pluginManager.registerEvents(PlayerDeath(config.getBoolean("keep-inventory", false), config.getBoolean("disable-pvp", false)), this)
+        pluginManager.registerEvents(PlayerDeath(config.getBoolean("keep-inventory", false), config.getBoolean("disable-pvp-on-death", true)), this)
     }
 }

@@ -28,7 +28,7 @@ class TakeDamage(val selfPvp: Boolean) : Listener {
                 event.isCancelled = true
             }
             !pvpEnabled(victim) -> {
-                messagePlayer(attacker, "<red>" + victim.name + "has their PvP currently disabled!")
+                messagePlayer(attacker, "<red>" + victim.name + " has their PvP currently disabled!")
                 simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true
             }

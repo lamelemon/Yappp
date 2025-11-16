@@ -13,6 +13,7 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.HandlerList
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitRunnable
 
@@ -26,7 +27,7 @@ class PvpToggleTimer(var duration : Long, val player: Player, val pvpToggle: Pvp
 
     override fun run() {
         if (duration <= 0) {
-            disablePvp(player)
+            disablePvp(player, true)
             this.cancel()
             return
         }
@@ -52,9 +53,7 @@ class PvpToggleTimer(var duration : Long, val player: Player, val pvpToggle: Pvp
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun playerMoveEvent(event: PlayerMoveEvent) {
-        if (event.player == this.player && !event.isCancelled) {
-            cancelTimer("moved")
-        }
+        if (event.player == this.player && !event.isCancelled) cancelTimer("moved")
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -71,5 +70,12 @@ class PvpToggleTimer(var duration : Long, val player: Player, val pvpToggle: Pvp
         } else if (attacker == this.player && victim is Player) {
             cancelTimer("attacked " + victim.name)
         }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    fun playerDeath(event: PlayerDeathEvent) {
+        if (event.isCancelled) return
+
+        if (event.player == this.player) cancelTimer("died")
     }
 }

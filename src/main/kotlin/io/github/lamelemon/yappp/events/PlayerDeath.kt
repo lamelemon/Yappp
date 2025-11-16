@@ -14,9 +14,11 @@ class PlayerDeath(var keepInventory: Boolean, var disablePvp: Boolean): Listener
     @EventHandler(priority = EventPriority.HIGHEST)
     fun playerDeath(event: PlayerDeathEvent) {
         CombatManager.combatTimers.remove(event.player.uniqueId)
+
         if (disablePvp) {
-            disablePvp(event.player)
+            disablePvp(event.player, false)
         }
+
         if (event.damageSource.causingEntity is Player && keepInventory) {
             event.keepInventory = keepInventory
             event.drops.clear()

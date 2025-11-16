@@ -8,7 +8,6 @@ import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.Sound
 import org.bukkit.entity.Player
-import org.bukkit.scheduler.BukkitTask
 import java.util.*
 
 class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand {
@@ -40,7 +39,7 @@ class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand
 
         if (!Utils.pvpEnabled(player)) {
             cooldowns[uuid] = commandSourceStack.location.world.gameTime
-            Utils.enablePvp(player)
+            Utils.enablePvp(player, true)
             // Avoid extremely slow memory leak
             instance.server.scheduler.runTaskLater(instance, Runnable{
                 cooldowns.remove(uuid)
@@ -49,7 +48,7 @@ class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand
         }
 
         if (disableTimer <= 0) {
-            Utils.disablePvp(player)
+            Utils.disablePvp(player, true)
             return
         }
 
