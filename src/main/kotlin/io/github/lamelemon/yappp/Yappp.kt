@@ -10,7 +10,7 @@ import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.java.JavaPlugin
 import java.io.File
 
-// TODO /fight <players> to challenge people to fights (disable pvp between fighters and outsiders, tag fighters)
+// TODO /duel <player> to challenge people to fights (disable pvp between fighters and outsiders, tag fighters)
 // TODO prevent players from disconnecting from server while combat tagged OR punish them for disconnecting
 //  (Maybe add both and just check a config variable?)
 // TODO add event listeners to toggling so timer gets cancelled when player moves or enters combat during it

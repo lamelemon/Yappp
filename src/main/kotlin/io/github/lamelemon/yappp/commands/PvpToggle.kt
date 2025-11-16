@@ -3,7 +3,7 @@ package io.github.lamelemon.yappp.commands
 import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils
-import io.github.lamelemon.yappp.utils.timers.ToggleTimer
+import io.github.lamelemon.yappp.utils.timers.PvpToggleTimer
 import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.Sound
@@ -13,7 +13,7 @@ import java.util.*
 
 class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand {
     private val cooldowns = mutableMapOf<UUID, Long>()
-    val toggleTimers = mutableMapOf<UUID, BukkitTask>()
+    val toggleTimers = mutableMapOf<UUID, PvpToggleTimer>()
 
     override fun execute(
         commandSourceStack: CommandSourceStack,
@@ -45,7 +45,6 @@ class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand
             instance.server.scheduler.runTaskLater(instance, Runnable{
                 cooldowns.remove(uuid)
             }, toggleCooldown * 20)
-
             return
         }
 
@@ -55,7 +54,7 @@ class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand
         }
 
         if (!toggleTimers.containsKey(uuid)) {
-            toggleTimers[uuid] = ToggleTimer(disableTimer, player, this).runTaskTimer(instance, 0, 20)
+            toggleTimers[uuid] = PvpToggleTimer(disableTimer, player, this)
         }
     }
 }

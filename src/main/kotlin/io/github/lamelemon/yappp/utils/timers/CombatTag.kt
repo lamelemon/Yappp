@@ -8,7 +8,7 @@ import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitRunnable
 
-class CombatTimer(var combatDuration: Long, val player: Player) : BukkitRunnable() {
+class CombatTag(var combatDuration: Long, val player: Player) : BukkitRunnable() {
 
     override fun run() {
         if (combatDuration <= 0) { // End timer

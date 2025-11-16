@@ -7,6 +7,7 @@ import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
 import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.Sound
+import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class ForcePvp : BasicCommand {
@@ -17,11 +18,6 @@ class ForcePvp : BasicCommand {
     ) {
         val player = commandSourceStack.sender
         if (player !is Player) return
-
-        if (!player.isOp) {
-            messagePlayer(player, "You don't have access to this command!")
-            return
-        }
 
         for (name: String in args) {
             val target = instance.server.getPlayer(name)
@@ -38,5 +34,9 @@ class ForcePvp : BasicCommand {
         return instance.server.onlinePlayers
             .map { it.name }
             .filter { it.lowercase().startsWith(input) }
+    }
+
+    override fun canUse(sender: CommandSender): Boolean {
+        return sender.isOp
     }
 }
