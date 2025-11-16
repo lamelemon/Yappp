@@ -22,12 +22,12 @@ class TakeDamage(val selfPvp: Boolean) : Listener {
         if (attacker !is Player || victim !is Player ||  attacker.uniqueId == victim.uniqueId && selfPvp) return
 
         when {
-            pvpEnabled(attacker) -> {
+            !pvpEnabled(attacker) -> {
                 messagePlayer(attacker, "<red>Your PvP is currently disabled!")
                 simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true
             }
-            pvpEnabled(victim) -> {
+            !pvpEnabled(victim) -> {
                 messagePlayer(attacker, "<red>" + victim.name + "has their PvP currently disabled!")
                 simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true

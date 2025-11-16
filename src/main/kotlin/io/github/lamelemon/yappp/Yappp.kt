@@ -2,6 +2,7 @@ package io.github.lamelemon.yappp
 
 import io.github.lamelemon.yappp.commands.ForcePvp
 import io.github.lamelemon.yappp.commands.PvpToggle
+import io.github.lamelemon.yappp.events.PlayerDeath
 import io.github.lamelemon.yappp.events.TakeDamage
 import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils.pvpStateKey
@@ -40,5 +41,6 @@ class Yappp : JavaPlugin() {
         registerCommand("pvp", PvpToggle(config.getLong("toggle-cooldown", 0), config.getLong("toggle-timer", 0)))
         registerCommand("forcePvp", ForcePvp())
         pluginManager.registerEvents(TakeDamage(config.getBoolean("self-damage")), this)
+        pluginManager.registerEvents(PlayerDeath(config.getBoolean("keep-inventory", false), config.getBoolean("disable-pvp", false)), this)
     }
 }

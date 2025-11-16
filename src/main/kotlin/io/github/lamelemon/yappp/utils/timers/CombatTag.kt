@@ -12,13 +12,17 @@ class CombatTag(var combatDuration: Long, val player: Player) : BukkitRunnable()
 
     override fun run() {
         if (combatDuration <= 0) { // End timer
-            messagePlayer(player, "<green>Exited combat!</green>")
-            simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
-            CombatManager.combatTimers.remove(player.uniqueId)
             this.cancel()
             return
         }
         combatDuration--
         sendActionBar(player, "<red>In combat for " + combatDuration + "s!</red>")
+    }
+
+    override fun cancel() {
+        messagePlayer(player, "<green>Exited combat!</green>")
+        simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_PLING)
+        CombatManager.combatTimers.remove(player.uniqueId)
+        super.cancel()
     }
 }
