@@ -44,10 +44,8 @@ class PvpToggleTimer(var duration : Long, val player: Player, val pvpToggle: Pvp
     }
 
     fun cancelTimer(reason: String) {
-        if (!reason.isEmpty()) {
-            messagePlayer(player, "<red>Toggle cancelled! You $reason!</red>")
-            simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_BASS)
-        }
+        messagePlayer(player, "<red>Toggle cancelled! You $reason!</red>")
+        simplePlaySound(player, Sound.BLOCK_NOTE_BLOCK_BASS)
         this.cancel()
     }
 
