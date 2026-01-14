@@ -11,28 +11,34 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDamageEvent
 
-class TakeDamage(val selfPvp: Boolean) : Listener {
+class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
-    fun entityDamageEvent(event: EntityDamageEvent) {
+    fun playerDamageEvent(event: EntityDamageEvent) {
         val victim = event.entity
         val attacker = event.damageSource.causingEntity
 
-        // Verify that it's a pvp situation and prevent people from being immune to self damage (if config says so)
-        if (attacker !is Player || victim !is Player ||  attacker.uniqueId == victim.uniqueId && selfPvp) return
+        // Verify that it's a pvp situation and prevent people from being immune to self damage (if config says to)
+        if (attacker !is Player || victim !is Player ||  (attacker.uniqueId == victim.uniqueId && selfPvp)) return
 
         when {
+            // Attacker's pvp is disabled
             !pvpEnabled(attacker) -> {
                 messagePlayer(attacker, "<red>Your PvP is currently disabled!")
                 simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true
             }
+
+            // Victim's pvp is disabled
             !pvpEnabled(victim) -> {
                 messagePlayer(attacker, "<red>" + victim.name + " has their PvP currently disabled!")
                 simplePlaySound(attacker, Sound.BLOCK_NOTE_BLOCK_BASS)
                 event.isCancelled = true
             }
-            attacker.uniqueId != victim.uniqueId -> { // Tag both players as being in combat unless its self damage
+
+            // Combat tag both parties if parties aren't the same player
+            attacker.uniqueId != victim.uniqueId -> {
+                if (event.finalDamage >= victim.health) return
                 CombatManager.combatTag(listOf(victim, attacker))
             }
         }

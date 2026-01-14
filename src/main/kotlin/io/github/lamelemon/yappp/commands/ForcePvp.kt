@@ -7,7 +7,6 @@ import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
 import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.Sound
-import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 
 class ForcePvp : BasicCommand {
@@ -19,9 +18,10 @@ class ForcePvp : BasicCommand {
         val player = commandSourceStack.sender
         if (player !is Player) return
 
+        // Get targeted players by their name
         for (name: String in args) {
             val target = instance.server.getPlayer(name)
-            if (target is Player) {
+            if (target is Player) { // Enable pvp for targets
                 enablePvp(target, false)
             }
         }
@@ -36,7 +36,7 @@ class ForcePvp : BasicCommand {
             .filter { it.lowercase().startsWith(input) }
     }
 
-    override fun canUse(sender: CommandSender): Boolean {
-        return sender.isOp
+    override fun permission(): String {
+        return "yappp.permission.forcepvp"
     }
 }

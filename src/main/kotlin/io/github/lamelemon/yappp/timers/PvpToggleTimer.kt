@@ -1,4 +1,4 @@
-package io.github.lamelemon.yappp.utils.timers
+package io.github.lamelemon.yappp.timers
 
 import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.commands.PvpToggle
@@ -21,7 +21,9 @@ class PvpToggleTimer(var duration : Long, val player: Player, val pvpToggle: Pvp
 
     init {
         messagePlayer(player, "<red>Disabling</red> PvP in...")
-        Bukkit.getPluginManager().registerEvents(this, instance)
+        Bukkit.getScheduler().runTaskLater(instance, Runnable{
+            Bukkit.getPluginManager().registerEvents(this, instance)
+        }, 10L)
         this.runTaskTimer(instance, 0L, 20L)
     }
 

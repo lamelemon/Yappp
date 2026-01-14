@@ -2,7 +2,7 @@ package io.github.lamelemon.yappp.utils
 
 import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
-import io.github.lamelemon.yappp.utils.timers.CombatTag
+import io.github.lamelemon.yappp.timers.CombatTag
 import org.bukkit.entity.Player
 import java.util.*
 

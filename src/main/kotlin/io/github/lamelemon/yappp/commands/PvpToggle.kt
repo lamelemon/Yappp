@@ -1,9 +1,9 @@
 package io.github.lamelemon.yappp.commands
 
 import io.github.lamelemon.yappp.Yappp.Companion.instance
+import io.github.lamelemon.yappp.timers.PvpToggleTimer
 import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils
-import io.github.lamelemon.yappp.utils.timers.PvpToggleTimer
 import io.papermc.paper.command.brigadier.BasicCommand
 import io.papermc.paper.command.brigadier.CommandSourceStack
 import org.bukkit.Sound
@@ -55,5 +55,9 @@ class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand
         if (!toggleTimers.containsKey(uuid)) {
             toggleTimers[uuid] = PvpToggleTimer(disableTimer, player, this)
         }
+    }
+
+    override fun permission(): String {
+        return "Permission to toggle pvp for player themselves"
     }
 }

@@ -1,4 +1,4 @@
-package io.github.lamelemon.yappp.utils.timers
+package io.github.lamelemon.yappp.timers
 
 import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer

@@ -5,3 +5,11 @@ api-version: '1.21.11'
 authors: [ lamius lemonius ]
 description: Yet Another Pvp Protection Plugin for Papermc
 website: https://github.com/lamelemon/Yappp.git
+
+permissions:
+  yappp.permission.forcepvp:
+    description: "Permission to force enable pvp for other players"
+    default: op
+  yappp.permission.pvptoggle:
+    description: "Permission to toggle pvp for player themselves"
+    default: true
