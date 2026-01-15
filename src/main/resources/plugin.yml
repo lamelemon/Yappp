@@ -1,5 +1,5 @@
 name: Yappp
-version: '1.0-SNAPSHOT'
+version: '1.1.2'
 main: io.github.lamelemon.yappp.Yappp
 api-version: '1.21.11'
 authors: [ lamius lemonius ]
