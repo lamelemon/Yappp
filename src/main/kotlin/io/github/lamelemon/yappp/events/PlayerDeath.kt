@@ -28,6 +28,8 @@ class PlayerDeath(var keepInventory: Boolean, var disablePvp: Boolean): Listener
         if (event.damageSource.causingEntity is Player) {
             event.keepInventory = true
             event.drops.clear()
+            event.setShouldDropExperience(false)
+            event.keepLevel = true
         }
     }
 }

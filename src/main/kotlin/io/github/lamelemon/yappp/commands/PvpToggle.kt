@@ -58,6 +58,6 @@ class PvpToggle(val toggleCooldown: Long, val disableTimer: Long) : BasicCommand
     }
 
     override fun permission(): String {
-        return "Permission to toggle pvp for player themselves"
+        return "yappp.permission.pvptoggle"
     }
 }
