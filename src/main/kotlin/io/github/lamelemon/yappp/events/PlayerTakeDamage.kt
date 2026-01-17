@@ -1,11 +1,14 @@
 package io.github.lamelemon.yappp.events
 
+import com.destroystokyo.paper.event.entity.EntityKnockbackByEntityEvent
 import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.pvpEnabled
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
+import io.papermc.paper.event.entity.EntityKnockbackEvent
 import org.bukkit.Sound
 import org.bukkit.entity.Player
+import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -38,9 +41,22 @@ class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
 
             // Combat tag both parties if parties aren't the same player
             attacker.uniqueId != victim.uniqueId -> {
-                if (event.finalDamage >= victim.health) return
+                if (victim.isDead) return
                 CombatManager.combatTag(listOf(victim, attacker))
             }
         }
+    }
+
+    @EventHandler
+    fun playerKnockbackEvent(event: EntityKnockbackByEntityEvent) {
+        val victim = event.entity
+        if (victim !is Player) return
+
+        val knockBacker = event.hitBy
+        if (knockBacker is Projectile) {
+            val shooter = knockBacker.shooter
+            if (shooter is Player) event.isCancelled = true
+        }
+        if (knockBacker is Player) event.isCancelled = true
     }
 }

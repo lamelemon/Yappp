@@ -4,6 +4,7 @@ import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.timers.CombatTag
 import org.bukkit.entity.Player
+import org.bukkit.inventory.Inventory
 import java.util.*
 
 object CombatManager {
@@ -26,13 +27,7 @@ object CombatManager {
         if (tagDuration.toInt() == 0) return
 
         for (player in players) {
-            if (!inCombat(player)) {
-                messagePlayer(player, "<red>Entered combat!</red>")
-                combatTimers[player.uniqueId] = CombatTag(tagDuration, player)
-                combatTimers[player.uniqueId]?.runTaskTimer(instance, 0, 20)
-            } else {
-                combatTimers[player.uniqueId]?.combatDuration = tagDuration
-            }
+            combatTag(player)
         }
     }
 
