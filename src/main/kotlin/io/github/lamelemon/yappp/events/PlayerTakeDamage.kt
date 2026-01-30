@@ -5,7 +5,6 @@ import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.pvpEnabled
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
-import io.papermc.paper.event.entity.EntityKnockbackEvent
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.bukkit.entity.Projectile

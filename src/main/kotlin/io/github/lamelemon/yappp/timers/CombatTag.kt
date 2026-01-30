@@ -41,7 +41,6 @@ class CombatTag(var combatDuration: Long, val player: Player) : BukkitRunnable()
 
     @EventHandler(priority = EventPriority.HIGHEST)
     fun playerDeath(event: PlayerDeathEvent) {
-        if (event.isCancelled) return
-        this.cancel()
+        if (!event.isCancelled) this.cancel()
     }
 }
