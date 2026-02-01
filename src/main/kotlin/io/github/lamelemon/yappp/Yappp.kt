@@ -8,6 +8,7 @@ import io.github.lamelemon.yappp.events.PlayerTakeDamage
 import io.github.lamelemon.yappp.internal.APImpl
 import io.github.lamelemon.yappp.utils.CombatManager
 import io.github.lamelemon.yappp.utils.Utils.pvpStateKey
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.configuration.file.YamlConfiguration
 import org.bukkit.plugin.ServicePriority
@@ -47,6 +48,7 @@ class Yappp : JavaPlugin() {
             this,
             ServicePriority.Normal
         )
+        Material.entries.forEach { logger.info { it.toString() } }
 
         pvpStateKey = NamespacedKey(this, "pvpDisabled")
         instance = this

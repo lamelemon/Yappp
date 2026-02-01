@@ -2,7 +2,6 @@ package io.github.lamelemon.yappp.timers
 
 import io.github.lamelemon.yappp.Yappp.Companion.instance
 import io.github.lamelemon.yappp.utils.CombatManager
-import io.github.lamelemon.yappp.utils.Utils.disablePvp
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.sendActionBar
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
