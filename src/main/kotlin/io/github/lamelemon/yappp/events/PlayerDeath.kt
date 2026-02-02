@@ -17,8 +17,8 @@ class PlayerDeath(var keepInventory: Boolean, var disablePvp: Boolean): Listener
         if (event.isCancelled) return
 
         val player = event.player
-        val inCombat = CombatManager.inCombat(player) // Take player out of combat
-        CombatManager.combatTimers.remove(player.uniqueId)
+        val inCombat = CombatManager.inCombat(player)
+        CombatManager.combatTimers.remove(player.uniqueId) // Take player out of combat
 
         // Disable player's pvp if config says to
         if (disablePvp) {
