@@ -2,6 +2,7 @@ package io.github.lamelemon.yappp.events
 
 import com.destroystokyo.paper.event.entity.EntityKnockbackByEntityEvent
 import io.github.lamelemon.yappp.utils.CombatManager
+import io.github.lamelemon.yappp.utils.Utils
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.pvpEnabled
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
@@ -15,7 +16,7 @@ import org.bukkit.event.entity.EntityDamageEvent
 
 class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun playerDamageEvent(event: EntityDamageEvent) {
         val victim = event.entity
         val attacker = event.damageSource.causingEntity
@@ -46,19 +47,18 @@ class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun playerKnockbackEvent(event: EntityKnockbackByEntityEvent) {
         val victim = event.entity
         if (victim !is Player) return
+        if (pvpEnabled(victim)) return
 
-        val knockBacker = event.hitBy
-        if (knockBacker is Projectile) {
-            val shooter = knockBacker.shooter
-            if (shooter is Player && shooter != victim) {
-                event.isCancelled = true
-                return
-            }
+        val attacker = when (val hitBy = event.hitBy) {
+            is Player -> hitBy
+            is Projectile -> hitBy.shooter as? Player
+            else -> null
         }
-        if (knockBacker is Player && knockBacker != victim) event.isCancelled = true
+
+        if (attacker != null && attacker != victim && pvpEnabled(attacker)) event.isCancelled = true
     }
 }
