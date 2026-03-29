@@ -40,15 +40,12 @@ class Yappp : JavaPlugin() {
             pluginManager.disablePlugin(this)
         }
 
-        api = APImpl()
-
         server.servicesManager.register(
             YapppApi::class.java,
-            api,
+            APImpl(),
             this,
             ServicePriority.Normal
         )
-        Material.entries.forEach { logger.info { it.toString() } }
 
         pvpStateKey = NamespacedKey(this, "pvpDisabled")
         instance = this

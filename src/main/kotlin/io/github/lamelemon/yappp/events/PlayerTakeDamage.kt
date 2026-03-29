@@ -55,10 +55,11 @@ class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
 
         val attacker = when (val hitBy = event.hitBy) {
             is Player -> hitBy
-            is Projectile -> hitBy.shooter as? Player
-            else -> null
+            is Projectile -> hitBy.shooter as? Player ?: return
+            else -> return
         }
 
-        if (attacker != null && attacker != victim && pvpEnabled(attacker)) event.isCancelled = true
+        if (pvpEnabled(attacker)) return
+        if (attacker.uniqueId != victim.uniqueId) event.isCancelled = true
     }
 }
