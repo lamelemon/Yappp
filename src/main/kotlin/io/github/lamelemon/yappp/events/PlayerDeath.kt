@@ -10,7 +10,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
 
 
-class PlayerDeath(var keepInventory: Boolean, var disablePvp: Boolean): Listener{
+class PlayerDeath(val keepInventory: Boolean, val disablePvp: Boolean, val fireDeathCounts: Boolean): Listener{
 
     @EventHandler(priority = EventPriority.HIGHEST)
     fun playerDeath(event: PlayerDeathEvent) {
