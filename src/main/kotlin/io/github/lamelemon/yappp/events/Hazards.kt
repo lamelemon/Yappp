@@ -9,26 +9,27 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockFromToEvent
 import org.bukkit.event.block.BlockPlaceEvent
-import kotlin.collections.get
 
-class Hazards(val immunityTimeout: Long): Listener {
+class Hazards(val immunityTimeout: Long, hazardStrings: List<String>): Listener {
 
-    private val placedBlock: HashSet<Block> = HashSet()
+    companion object {
+        val placedBlock: HashSet<Block> = HashSet()
+
+        fun isHazardous(block: Block): Boolean {
+            return placedBlock.contains(block)
+        }
+    }
+
+    private var hazards: HashSet<Material> = hazardStrings.mapNotNull { Material.getMaterial(it) }.toHashSet()
 
     @EventHandler(priority = EventPriority.MONITOR)
     fun playerPlaceLava(event: BlockPlaceEvent) {
         if (event.isCancelled) return
 
         val block = event.blockPlaced
-        if (block.type != Material.LAVA) return
+        if (!hazards.contains(block.type)) return
 
-        val player = event.player
-        if (!placedLava.contains(player)) placedLava[player] = hashSetOf(block)
-        else placedLava[player]?.add(block)
-
-        Bukkit.getScheduler().runTaskLater(Yappp.Companion.instance, Runnable{
-            placedLava[player]?.remove(block)
-        }, immunityTimeout)
+        addHazard(block)
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
@@ -36,7 +37,14 @@ class Hazards(val immunityTimeout: Long): Listener {
         if (event.isCancelled) return
 
         val from = event.block
-        val to = event.block
-        if (!placedLava.contains(from)) return
+        val to = event.toBlock
+        if (hazards.contains(from.type) && hazards.contains(to.type) && placedBlock.contains(from)) addHazard(to)
+    }
+
+    private fun addHazard(block: Block) {
+        placedBlock.add(block)
+        Bukkit.getScheduler().runTaskLater(Yappp.instance, Runnable{
+            placedBlock.remove(block)
+        }, immunityTimeout)
     }
 }

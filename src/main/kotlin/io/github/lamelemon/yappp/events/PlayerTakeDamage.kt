@@ -2,7 +2,6 @@ package io.github.lamelemon.yappp.events
 
 import com.destroystokyo.paper.event.entity.EntityKnockbackByEntityEvent
 import io.github.lamelemon.yappp.utils.CombatManager
-import io.github.lamelemon.yappp.utils.Utils
 import io.github.lamelemon.yappp.utils.Utils.messagePlayer
 import io.github.lamelemon.yappp.utils.Utils.pvpEnabled
 import io.github.lamelemon.yappp.utils.Utils.simplePlaySound
@@ -12,9 +11,9 @@ import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
-import org.bukkit.event.block.BlockEvent
 import org.bukkit.event.entity.EntityDamageByBlockEvent
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.block.Block
 
 class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
 
@@ -65,13 +64,16 @@ class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
         if (attacker.uniqueId != victim.uniqueId) event.isCancelled = true
     }
 
+    @EventHandler(priority = EventPriority.HIGHEST)
     fun playerDamageByBlockEvent(event: EntityDamageByBlockEvent) {
+        if (event.isCancelled) return
+
         val victim = event.entity
         if (victim !is Player) return
         if (pvpEnabled(victim)) return
 
-        var attacker = event.damager
-        if () return
-
+        val damager = event.damager
+        if (damager !is Block) return
+        if (Hazards.isHazardous(damager)) event.isCancelled = true
     }
 }

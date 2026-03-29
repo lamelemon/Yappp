@@ -5,7 +5,6 @@ import io.github.lamelemon.yappp.commands.ForcePvp
 import io.github.lamelemon.yappp.commands.PvpToggle
 import io.github.lamelemon.yappp.events.Hazards
 import io.github.lamelemon.yappp.events.PlayerDeath
-import io.github.lamelemon.yappp.events.environment.hazard.HazardPvp
 import io.github.lamelemon.yappp.events.PlayerTakeDamage
 import io.github.lamelemon.yappp.internal.APImplementation
 import io.github.lamelemon.yappp.utils.CombatManager
@@ -78,7 +77,8 @@ class Yappp : JavaPlugin() {
         if (config.getBoolean("lava.enabled", true)) {
             pluginManager.registerEvents(
                 Hazards(
-                    config.getLong("lava-timeout", 5) * 20
+                    config.getLong("lava-timeout", 5) * 20,
+                    config.getStringList("environment.hazard.hazards")
                 ),
                 this
             )

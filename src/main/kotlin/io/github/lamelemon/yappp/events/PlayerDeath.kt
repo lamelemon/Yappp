@@ -21,14 +21,11 @@ class PlayerDeath(val keepInventory: Boolean, val disablePvp: Boolean, val fireD
         CombatManager.combatTimers.remove(player.uniqueId) // Take player out of combat
 
         // Disable player's pvp if config says to
-        if (disablePvp) {
-            disablePvp(event.player, false)
-        }
-
+        if (disablePvp) disablePvp(event.player, false)
         if (!keepInventory) return
 
         // Keep inventory on player death
-        if (event.damageSource.causingEntity is Player || (inCombat && event.damageSource.damageType == DamageType.ON_FIRE)) {
+        if (event.damageSource.causingEntity is Player || (fireDeathCounts && inCombat && event.damageSource.damageType == DamageType.ON_FIRE)) {
             event.keepInventory = true
             event.keepLevel = true
             event.drops.clear()
