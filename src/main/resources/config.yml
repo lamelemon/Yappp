@@ -21,6 +21,8 @@ combat:
 
 environment:
   fire-death-counts: true # Should dying to fire while in combat count as a pvp death (e.g. fire aspect)
-  lava:
-    enabled: true # Should placing lava cause the lava to be treated as a combat action (combat tag and such)
-    immunity-time: 2 # How long (in seconds) should it take for pvp lava immunity to wear off
+  hazard:
+    enabled: true # Should there be an immunity timer when placing a hazard (e.g. lava), while out of pvp for when it can deal damage to non-pvp players
+    immunity-time: 2 # How long (in seconds) should it take for hazard immunity to wear off
+    hazards: # Materials that count as hazards
+      - LAVA

@@ -12,6 +12,8 @@ import org.bukkit.entity.Projectile
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
+import org.bukkit.event.block.BlockEvent
+import org.bukkit.event.entity.EntityDamageByBlockEvent
 import org.bukkit.event.entity.EntityDamageEvent
 
 class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
@@ -61,5 +63,15 @@ class PlayerTakeDamage(val selfPvp: Boolean) : Listener {
 
         if (pvpEnabled(attacker)) return
         if (attacker.uniqueId != victim.uniqueId) event.isCancelled = true
+    }
+
+    fun playerDamageByBlockEvent(event: EntityDamageByBlockEvent) {
+        val victim = event.entity
+        if (victim !is Player) return
+        if (pvpEnabled(victim)) return
+
+        var attacker = event.damager
+        if () return
+
     }
 }
